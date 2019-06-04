@@ -1,0 +1,17 @@
+<main>
+  <div class="container slider-wrapper js-slider-wrapper" #bannerWrapperOuter>
+      <div class="slider-content js-slider-content" #bannerWrapperEle>
+          <div class="image-wrapper" *ngFor="let banner of banners;">
+              <img src="{{banner.bannerImageUrl}}" alt="{{banner.bannerImageAlt}}" 
+              class="active-image gallery-image" #bnrImg/>
+          </div>
+      </div>
+      <div class="dots-wrapper js-dots-wrapper">
+          <span class="dot" *ngFor="let banner of banners; let index=$index;"
+          (click)="slideToImageIndex(0,index)"
+          [class.dot--active]="activeBanrIndx == index"></span>
+      </div>
+      <button class="btn-ctrl js-prev" [class.disabled]="disableLeft" (click)="slideToImageIndex(-1, null)">PREV</button>
+      <button class="btn-ctrl js-next" [class.disabled]="disableRight" (click)="slideToImageIndex(1, null)">NEXT</button>        
+  </div>
+</main>

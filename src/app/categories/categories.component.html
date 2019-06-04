@@ -1,0 +1,15 @@
+<section class="category-wrapper">
+  <div class="container category-content">
+      <div class="category-box" [attr.data-categ-id]="id" 
+      *ngFor="let category of categories;">
+          <div class="img-wrapper">
+              <img src="{{category.imageUrl}}" alt="image of {{category.name}}" class="category-img" tabindex="0">
+          </div>
+          <div class="category-info ">
+              <h3 tabindex="0" [attr.aria-label]="name">{{category.name}}</h3>
+              <p tabindex="0">{{category.description}}</p>
+              <a class="js-explore" [attr.aria-label]="'Click on button to Explore '+ name" routerLink="/products/{{category.id}}">Explore {{category.name}}</a>
+          </div>
+      </div>  
+    </div>      
+</section>

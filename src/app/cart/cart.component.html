@@ -1,0 +1,52 @@
+<main class="cart-wrapper">
+  <header class="cart-header">
+      <h3 tabindex="0">My Cart</h3>
+      <div class="cart-count" tabindex="0">
+          (<span class="js-cart-count">{{ totalQuantity }} </span> Item)
+      </div>
+      <button class="close js-close" tabindex="0" role="button" 
+      aria-label="click here for closing cart modal">&times;</button>
+  </header>
+  <section>
+      <ul class="cart-items js-cart-items">
+          <li class="cart-item js-item-wrapper"
+           [attr.data-item-id]="id" tabindex="0" 
+           [attr.aria-label]="name"
+           *ngFor="let item of items;">
+            <img class="item-img" src="{{item.imageURL}}" alt="{{item.name}}">
+            <div class="item-info">
+                <h2>{{item.name}}</h2>
+                <div class="item-controls">
+                    <button class="btn--cart js-remove-item" tabindex="0" role="button" aria-pressed="false" aria-label="decrease item count button">-</button>
+                    <span class="item-count js-item-count" tabindex="0">{{ item.quantity }}</span>
+                    <button class="btn--cart js-add-item" tabindex="0" role="button" aria-pressed="false" aria-label="increase item count button">+</button>
+                    <span class="mult">&times;</span>
+                    <span tabindex="0">Rs{{item.price}}</span>
+                    <div class="item-tot-price">            
+                    Rs<span class="js-item-total" tabindex="0">{{item.totalPrice}}</span>
+                    </div>
+                </div>
+            </div>                        
+        </li>        
+      </ul>
+      <div class="cart-advt js-advt-cart" [class.d-flex]="showAdvt" tabindex="0">
+          <img src="./static/images/lowest-price.png" alt="lowest price">
+          <p>Your won't find it cheaper anywhere</p>
+      </div>
+      <div class="empty-div js-empty-cart"
+      [class.d-flex]="showEmptyCart"
+       tabindex="0">
+          <h2>No items in your cart</h2>
+          <p>your favourite items are just a click away</p>
+          <a href="#products" class="js-close">start shopping</a>
+      </div>
+  </section>
+  <footer class="cart-footer"
+  [class.d-none]="showEmptyCart">
+      <span>Promo code can be applied on </span>
+      <button >
+          <span class="checkout-txt" tabindex="0">Proceed to checkout</span>                
+          <span class="cart-final-price" tabindex="0">Rs <span class="js-cart-final" tabindex="0">{{totalAmount}}</span> </span>
+      </button>
+  </footer>
+</main>

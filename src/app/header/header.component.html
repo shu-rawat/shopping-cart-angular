@@ -1,0 +1,48 @@
+<header>
+  <div class="container container--header">
+      <a id="nav-logo" href="#home">
+          <img src="/assets/static/images/logo.png" alt="logo">
+      </a>
+      <nav class="nav-main nav-dropdown js-nav-dropdown" (click)="navMobileToggle($event)"
+      [class.show]="isMenuOpen">
+          <a routerLink="/home">Home</a>
+          <a routerLink="/products">Products</a>
+          <div class="log-reg-wrapper">
+                  <a routerLink="/login">SignIn</a>
+                  <a routerLink="/register">Register</a>
+          </div>
+      </nav>
+      <nav class="nav-cart">
+          <div class="cart-icon cart-icon--desk">
+              <div class="cursor" data-target="#dialog_cart" (click)="modalAction()" >
+                  <a routerLink="/cart" class="cart-link" tabindex="0">
+                      <img src="/assets/static/images/cart.svg" class="cart-img" aria-hidden="true">
+                      <div class="cart-count">
+                          <span class="js-cart-count">{{ cartCount }}</span>
+                          <span> Items</span>
+                          <span aria-label="in cart"></span>
+                      </div>
+                  </a>
+              </div>
+              <div class="cart-wrapper--modal d-none" role="dialog" 
+              id="dialog_cart" aria-labelledby="dialog_cart"
+                  aria-modal="true" [class.d-none]= "!isModelOpen">
+                  <!-- <app-cart></app-cart> -->
+              </div>
+          </div>
+      </nav>
+      <nav class="nav-mobile">
+          <div id="nav-icon" class="js-nav-icon" (click)="navMobileToggle($event)"
+          [class.open]="isMenuOpen">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+      </nav>
+  </div>
+</header>
+<div class="line-bottom">
+</div>

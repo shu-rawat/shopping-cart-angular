@@ -1,0 +1,48 @@
+<div class="plp-wrapper">
+  <div class="container">
+    <aside class="plp-catg-wrapper" 
+    [attr.aria-label]="'choose products of different categories'" 
+    tabindex="0">
+      <ul class="list--desk js-aside-categ">
+        <li class="all js-all" [class.visible]="allSelected">
+          <a routerLink="/products" [attr.aria-label]="'click here for all products'">All</a>
+        </li>
+        <li [class.visible]="active" [attr.data-categ-id]="id"
+        *ngFor="let category of categories;" [class.d-none]="!category.enabled">
+          <a routerLink="/products/{{category.id}}" [attr.aria-label]="'click here for '+ category.name">
+            {{name}}
+          </a>
+        </li>
+        <i class="arrow down"></i>
+      </ul>
+    </aside>
+    <main class="items-main">
+      <ul class="js-items-ul">       
+        <li class="plp-items-wrapper js-item-wrapper" 
+        *ngFor="let product of products;"
+        [attr.data-item-id]="product.id" 
+        [attr.data-categ-id]="product.category" 
+        tabindex="0"
+        [attr.aria-label]="product.name">
+          <h3>{{product.name}}</h3>
+          <div class="cont-wrpr">
+            <img src="{{product.imageURL}}" alt="{{product.name}}"/>
+            <div class="content">
+              <p tabindex="0">
+                {{product.description}}
+              </p>
+              <div class="button js-add-item">
+                <button>
+                  <span>MRP</span> Rs.{{product.price}}
+                </button>
+                <button>
+                  Buy Now <span>@</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </div>
+</div>

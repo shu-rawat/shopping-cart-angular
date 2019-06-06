@@ -4,43 +4,66 @@
           <h1 tabindex="0">Signup</h1>
           <p>We do not share your personal details with anyone.</p>
       </div>
-      <form action="/">
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
           <div class="form-group">
-              <input type="text" id="fname" class="effect" placeholder="first name"/>
+              <input type="text" id="fname" class="effect" placeholder="first name"
+              name="fname"
+              ngModel
+              required
+              #fname="ngModel"/>
               <label for="fname">First Name</label>
-              <div class="error">
-                  <p class="required">First Name is required.</p>
+              <div class="error" *ngIf="fname.invalid && (fname.dirty || fname.touched || form.submitted)">
+                  <p class="show" *ngIf="fname.errors.required">First Name is required.</p>
               </div>
           </div>
           <div class="form-group">
-              <input type="text" id="lname" class="effect" placeholder="last name"/>
+              <input type="text" id="lname" class="effect" placeholder="last name"
+              name="lname"
+              ngModel
+              #lname="ngModel"
+              required/>
               <label for="lname">Last Name</label>
-              <div class="error">
-                  <p class="required">Last Name is required.</p>
+              <div class="error" *ngIf="lname.invalid && (lname.dirty || lname.touched || form.submitted)">
+                  <p class="required show">Last Name is required.</p>
               </div>
           </div>
           <div class="form-group">
-              <input type="email" id="email" class="effect" placeholder="email"/>
+              <input type="email" id="email" class="effect" placeholder="email"
+              name="email"
+              ngModel
+              #email="ngModel" 
+              required
+              email/>
               <label for="email">Email</label>
 
-              <div class="error">
-                  <p class="required">Email is required.</p>
-                  <p class="invalid" _pattern="(.+)@(.+){2,}\.(.+){2,}">Email is invalid.</p>
+              <div class="error" *ngIf="email.invalid && (email.dirty || email.touched || form.submitted)">
+                  <p class="show" *ngIf="email.errors.required">Email is required.</p>
+                  <p class="show" *ngIf="email.errors.email">Email is invalid.</p>
               </div>
           </div>
           <div class="form-group">
-              <input type="password" id="password" class="effect" mismatch  placeholder="password"/>
+              <input type="password" id="password" class="effect"  
+              name="password"
+              ngModel
+              #password="ngModel"
+              required
+              placeholder="password"/>
               <label for="password">Password</label>
-              <div class="error">
-                  <p class="required">Password is required.</p>
+              <div class="error"  *ngIf="email.invalid && (email.dirty || email.touched || form.submitted)">
+                  <p class="show">Password is required.</p>
               </div>
           </div>
           <div class="form-group">
-              <input type="password" id="c-password" class="effect" mismatch placeholder="confirm placeholder"/>
+              <input type="password" id="c-password" class="effect"
+              name="cpassword"
+              ngModel
+              #cpassword="ngModel"
+              required
+              mismatch placeholder="confirm placeholder"/>
               <label for="c-password">Confirm Password</label>
-              <div class="error">
-                  <p class="required">Confirm Password is required.</p>
-                  <p class="mismatch">Password not matched</p>
+              <div class="error" *ngIf="cpassword.invalid && (cpassword.dirty || cpassword.touched || form.submitted)">
+                  <p class="show" *ngIf="cpassword.errors.required">Confirm Password is required.</p>
+                  <p class="show">Password not matched</p>
               </div>
           </div>
           <button class="register-btn">Signup</button>

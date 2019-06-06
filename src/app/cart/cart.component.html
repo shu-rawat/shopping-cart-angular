@@ -5,21 +5,26 @@
           (<span class="js-cart-count">{{ totalQuantity }} </span> Item)
       </div>
       <button class="close js-close" tabindex="0" role="button" 
-      aria-label="click here for closing cart modal">&times;</button>
+      (click)="modalCloseAction()"
+      [attr.aria-label]="'click here for closing cart modal'">&times;</button>
   </header>
   <section>
       <ul class="cart-items js-cart-items">
           <li class="cart-item js-item-wrapper"
-           [attr.data-item-id]="id" tabindex="0" 
-           [attr.aria-label]="name"
+           [attr.data-item-id]="item.id" tabindex="0" 
+           [attr.aria-label]="item.name"
            *ngFor="let item of items;">
             <img class="item-img" src="{{item.imageURL}}" alt="{{item.name}}">
             <div class="item-info">
                 <h2>{{item.name}}</h2>
                 <div class="item-controls">
-                    <button class="btn--cart js-remove-item" tabindex="0" role="button" aria-pressed="false" aria-label="decrease item count button">-</button>
+                    <button class="btn--cart js-remove-item" tabindex="0" role="button"
+                    (click)="onRemoveItemEl(item.id)"
+                     aria-pressed="false" aria-label="decrease item count button">-</button>
                     <span class="item-count js-item-count" tabindex="0">{{ item.quantity }}</span>
-                    <button class="btn--cart js-add-item" tabindex="0" role="button" aria-pressed="false" aria-label="increase item count button">+</button>
+                    <button class="btn--cart js-add-item" tabindex="0" role="button" 
+                    (click)="onAddItemEl(item.id)"
+                    aria-pressed="false" aria-label="increase item count button">+</button>
                     <span class="mult">&times;</span>
                     <span tabindex="0">Rs{{item.price}}</span>
                     <div class="item-tot-price">            

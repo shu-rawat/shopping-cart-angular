@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../data.service';
 
 @Component({
@@ -19,14 +19,12 @@ export class SliderComponent implements OnInit, AfterViewInit {
   @ViewChild('bannerWrapperEle', null) bannerWrapperEle:ElementRef;
   @ViewChildren('bnrImg') bnrImgQueryLst !: QueryList<ElementRef>;
 
-  constructor(private dataService: DataService, private renderer:Renderer2) {
+  constructor(private dataService: DataService, private renderer:Renderer2, private cdRef:ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    this.dataService.getBanners().subscribe((banners) => {
-      this.banners = banners;
-    });
+  
   }
 
   //when window gets resized
@@ -38,10 +36,17 @@ export class SliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initData();
-    this.applyCss();
-    this.attachEvents();
-    this.setDisableBtns();
+    this.dataService.getBanners().subscribe((banners) => {
+      this.banners = banners;
+      this.cdRef.detectChanges();
+      setTimeout(()=>{
+        this.initData();
+        this.applyCss();
+        this.attachEvents();
+        this.setDisableBtns();
+      },1);
+    });
+   
   }
 
   initData() {
@@ -91,7 +96,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   applyCss() {
     this.renderer.setStyle( this.bannerWrapperEle.nativeElement,'width',`${this.bannerWrapperWidth * this.banners.length + 100}px`)
-    this.renderer.setStyle( this.bannerWrapperEle.nativeElement,'left', -this.activeBanrIndx * this.bannerWrapperWidth);
+    this.renderer.setStyle( this.bannerWrapperEle.nativeElement,'left', `${-this.activeBanrIndx * this.bannerWrapperWidth}px`);
     this.bnrImgQueryLst.map((element:ElementRef)=>{
       this.renderer.setStyle(element.nativeElement,'width',`${this.bannerWrapperWidth}px`);
     });

@@ -7,7 +7,7 @@
           </div>
       </div>
       <div class="dots-wrapper js-dots-wrapper">
-          <span class="dot" *ngFor="let banner of banners; let index=$index;"
+          <span class="dot" *ngFor="let banner of banners; let index=index;"
           (click)="slideToImageIndex(0,index)"
           [class.dot--active]="activeBanrIndx == index"></span>
       </div>

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { SliderComponent } from './slider/slider.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EqualValidatorDirective } from './equal-validator.directive';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,14 @@ import { HttpClientModule } from '@angular/common/http';
     ProductsComponent,
     RegisterComponent,
     SliderComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    EqualValidatorDirective
   ],
   imports: [
     BrowserModule,   
     HttpClientModule, 
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],

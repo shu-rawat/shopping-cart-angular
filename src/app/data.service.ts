@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { CartItem } from './models/cartItem';
+import { CartModel } from './models/cartModel';
 
 const url="http://localhost:3000";
 
@@ -12,10 +14,19 @@ export class DataService {
   products: Array<any> = [];
   categories: Array<any> = [];
   banners: Array<any> = [];
-
+  cartModel:CartModel;
   cartCountSubj: BehaviorSubject<Number> = new BehaviorSubject(0);
+  cartItemsSubj: BehaviorSubject<Array<CartItem>> = new BehaviorSubject([]);
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+      this.getCartItems().subscribe((cartItems:Array<any>)=>{
+        this.getProducts().subscribe((products:Array<any>)=>{
+          this.cartModel = new CartModel(products,cartItems);
+          this.cartCountSubj.next(this.cartModel.getTotalQty());
+          this.cartItemsSubj.next(this.cartModel.cartItems);
+        });
+      });
+  }
 
   getProducts() {
     if (this.products.length) {
@@ -62,11 +73,11 @@ export class DataService {
 
   postAddToCart(productId) {
     let data = { productId, decreaseCount: false };
-    return this.http.post("/addToCart",data);
+    return this.http.post(`${url}/addToCart`,data);
   }
 
   postRemoveFromCart(productId) {
     let data = { productId, decreaseCount: true };
-    return this.http.post("/addToCart",data);
+    return this.http.post(`${url}/addToCart`,data);
   }
 }

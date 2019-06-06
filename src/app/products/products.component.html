@@ -3,14 +3,16 @@
     <aside class="plp-catg-wrapper" 
     [attr.aria-label]="'choose products of different categories'" 
     tabindex="0">
-      <ul class="list--desk js-aside-categ">
-        <li class="all js-all" [class.visible]="allSelected">
+      <ul class="list--desk js-aside-categ" (click)="categLinkAction()" [class.list-open]="isCategDrpOpen">
+        <li class="all js-all" [class.visible]="allSelected"
+        [class.visible]="!selectedCategory">
           <a routerLink="/products" [attr.aria-label]="'click here for all products'">All</a>
         </li>
         <li [class.visible]="active" [attr.data-categ-id]="id"
+        [class.visible]="selectedCategory == category.id"
         *ngFor="let category of categories;" [class.d-none]="!category.enabled">
           <a routerLink="/products/{{category.id}}" [attr.aria-label]="'click here for '+ category.name">
-            {{name}}
+            {{category.name}}
           </a>
         </li>
         <i class="arrow down"></i>
@@ -23,7 +25,8 @@
         [attr.data-item-id]="product.id" 
         [attr.data-categ-id]="product.category" 
         tabindex="0"
-        [attr.aria-label]="product.name">
+        [attr.aria-label]="product.name"
+        [ngStyle]="{'display':(!selectedCategory || selectedCategory==product.category)?'flex':'none'}">
           <h3>{{product.name}}</h3>
           <div class="cont-wrpr">
             <img src="{{product.imageURL}}" alt="{{product.name}}"/>
@@ -31,7 +34,7 @@
               <p tabindex="0">
                 {{product.description}}
               </p>
-              <div class="button js-add-item">
+              <div class="button js-add-item" (click)="onBuyNow(product.id)">
                 <button>
                   <span>MRP</span> Rs.{{product.price}}
                 </button>

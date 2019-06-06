@@ -1,7 +1,7 @@
 <header>
   <div class="container container--header">
       <a id="nav-logo" href="#home">
-          <img src="/assets/static/images/logo.png" alt="logo">
+          <img src="/static/images/logo.png" alt="logo">
       </a>
       <nav class="nav-main nav-dropdown js-nav-dropdown" (click)="navMobileToggle($event)"
       [class.show]="isMenuOpen">
@@ -14,9 +14,9 @@
       </nav>
       <nav class="nav-cart">
           <div class="cart-icon cart-icon--desk">
-              <div class="cursor" data-target="#dialog_cart" (click)="modalAction()" >
+              <div class="cursor" data-target="#dialog_cart" (click)="modalAction(true)" >
                   <a routerLink="/cart" class="cart-link" tabindex="0">
-                      <img src="/assets/static/images/cart.svg" class="cart-img" aria-hidden="true">
+                      <img src="/static/images/cart.svg" class="cart-img" aria-hidden="true">
                       <div class="cart-count">
                           <span class="js-cart-count">{{ cartCount }}</span>
                           <span> Items</span>
@@ -24,10 +24,10 @@
                       </div>
                   </a>
               </div>
-              <div class="cart-wrapper--modal d-none" role="dialog" 
+              <div class="cart-wrapper--modal d-none" [class.d-none]="" role="dialog" 
               id="dialog_cart" aria-labelledby="dialog_cart"
-                  aria-modal="true" [class.d-none]= "!isModelOpen">
-                  <!-- <app-cart></app-cart> -->
+                  aria-modal="true" [class.d-none]= "!isModalOpen">
+                  <app-cart (modalClosed)="modalAction(false)"></app-cart>
               </div>
           </div>
       </nav>

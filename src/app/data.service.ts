@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { CartItem } from './models/cartItem';
 import { CartModel } from './models/cartModel';
 
-const url="http://localhost:3000";
+const url="http://localhost:3000/api";
 
 @Injectable({
   providedIn: 'root'
